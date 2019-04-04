@@ -1,0 +1,4 @@
+-r base.txt
+
+# Allow CORS
+django-cors-headers==2.5.2

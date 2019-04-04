@@ -1,0 +1,7 @@
+Django==2.1.7
+
+# Organize settings as well
+django-split-settings==0.3.0
+
+# WSGI server
+gunicorn==19.9.0

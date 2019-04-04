@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  nginx:
+    image: nginx
+    container_name: 'nginx'
+    environment:
+      - MAIN_PORT
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./static:/static
+      - ./log/nginx:/var/log/nginx
+    ports:
+      - "$MAIN_PORT:8000"
+    depends_on:
+      - django
+
+  django:
+    container_name: 'django'
+    environment:
+      - SECRET_KEY
+      - MODE
+
+      - DB_HOST
+      - DB_NAME
+      - DB_USER
+      - DB_PASSWORD
+
+      - SUPER_USER_LOGIN
+      - SUPER_USER_PASSWORD
+
+    build:
+      context: .
+      args:
+        - MODE=${MODE}
+    command: ["/bin/sh", "/scripts/wait-for-db.sh", "$DB_HOST", "sh /scripts/init.sh"]
+    volumes:
+      - ./src:/src
+      - ./static:/static
+      - ./config/django/requirements:/requirements
+      - ./config/django/scripts:/scripts
+      - ./log:/log
+      - ./log/gunicorn:/log/gunicorn
+      - ./log/django:/log/django
+    restart: always
+    expose:
+      - "8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:10-alpine
+    container_name: 'postgres'
+    environment:
+      - DB_NAME
+      - DB_USER
+      - DB_PASSWORD
+    volumes:
+      - ./db:/var/lib/postgresql/_data
+      - ./log/postgresql:/var/log/postgresql
+      - ./config/postgres/scripts:/docker-entrypoint-initdb.d

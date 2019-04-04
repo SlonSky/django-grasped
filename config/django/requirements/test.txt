@@ -1,0 +1,7 @@
+-r base.txt
+
+# PostgreSQL support
+psycopg2-binary==2.7.7
+
+# Allow CORS
+django-cors-headers==2.5.2
