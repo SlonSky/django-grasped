@@ -2,6 +2,7 @@
 # django-grasped
 
 Django project structure skeleton for big applications
+
 Current django project structure was proven on enterprise projects.  
   
 This structure was intended by such software design principles, like   
