@@ -10,3 +10,5 @@ GRASP and SOLID.
 
 You can fork it for your own enterprise project and write your apps by the template of `spam` application.
 Project structure provide comfortable source code organizing and reduces code conflicts between developers, working on same project/project part.
+
+Explore project, reading contents of example modules.
