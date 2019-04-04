@@ -15,8 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.spam',
-    'apps.eggs',
-    'apps.misc'
+    'apps.eggs'
 ]
 
 MIDDLEWARE = [
